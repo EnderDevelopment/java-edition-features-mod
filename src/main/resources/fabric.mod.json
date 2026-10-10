@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "javafeaturesmod",
+  "version": "1.0.0",
+  "name": "Java Features Mod",
+  "description": "Implements Java Edition mechanics in Minecraft Bedrock Edition on Android",
+  "authors": [
+    "blayckmocambitemanoel89"
+  ],
+  "contact": {
+    "homepage": "https://example.com",
+    "sources": "https://github.com/blayckmocambitemanoel89/javafeaturesmod"
+  },
+  "license": "MIT",
+  "icon": "assets/javafeaturesmod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.blayckmocambitemanoel89.javafeaturesmod.JavaFeaturesMod"
+    ]
+  },
+  "mixins": [
+    "javafeaturesmod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "minecraft": "1.20.4",
+    "fabric-api": "*"
+  }
+}

@@ -1,0 +1,60 @@
+plugins {
+    id 'fabric-loom' version '1.1-SNAPSHOT'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
+    }
+}
+
+extensions {
+    loom {
+        minecraftVersion = '1.20.4'
+        mappings = 'official'
+        runs {
+            client {
+                property 'fabric.runs.type', 'client'
+            }
+            server {
+                property 'fabric.runs.type', 'server'
+            }
+        }
+    }
+}
+
+dependencies {
+    minecraft 'com.mojang:minecraft:1.20.4'
+    mappings 'net.fabricmc:yarn:1.20.4+build.1:v2'
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.89.0+1.20.4'
+}
+
+processResources {
+    inputs.property 'version', project.version
+    inputs.property 'minecraft_version', loom.minecraftVersion
+}
+
+loom {
+    refreshDeps {
+        refresh(dependencies.minecraft)
+    }
+    ide {
+        runConfigs {
+            create('client') {
+                name = 'Client'
+                main = 'net.fabricmc.devlaunchinjector.Main'
+                programArgs = ['--assetIndex', '1.20', '--assetsDir', 'assets', '--version', '1.20']
+                vmArgs = ['-Dfabric.dli.config.dir=${projectDir}/run', '-Dfabric.dli.env=client']
+            }
+            create('server') {
+                name = 'Server'
+                main = 'net.fabricmc.devlaunchinjector.Main'
+                programArgs = ['--noGui']
+                vmArgs = ['-Dfabric.dli.config.dir=${projectDir}/run', '-Dfabric.dli.env=server']
+            }
+        }
+    }
+}
